@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
+import { signin, signInWithGoogle } from "../helpers/auth";
 
 export default class Login extends Component {
   constructor() {
@@ -13,7 +13,6 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
-    this.githubSignIn = this.githubSignIn.bind(this);
   }
 
   handleChange(event) {
@@ -40,14 +39,6 @@ export default class Login extends Component {
     }
   }
 
-  async githubSignIn() {
-    try {
-      await signInWithGitHub();
-    } catch (error) {
-      this.setState({ error: error.message });
-    }
-  }
-
   render() {
     return (
       <div className="container">
@@ -59,7 +50,7 @@ export default class Login extends Component {
           <h1>
             Login to
             <Link className="title ml-2" to="/">
-              Chatty
+              Ensemble
             </Link>
           </h1>
           <p className="lead">
@@ -94,9 +85,6 @@ export default class Login extends Component {
           <p>You can also log in with any of these services</p>
           <button className="btn btn-danger mr-2" type="button" onClick={this.googleSignIn}>
             Sign in with Google
-          </button>
-          <button className="btn btn-secondary" type="button" onClick={this.githubSignIn}>
-            Sign in with GitHub
           </button>
           <hr />
           <p>
