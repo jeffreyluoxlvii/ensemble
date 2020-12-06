@@ -116,6 +116,12 @@ export default class Play extends Component {
           <Header />
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
+              Current Queue: 
+              <ul>
+                {this.state.queue.map(song => {
+                  return <li key={song.videoId}>{song.title}</li>
+                })}
+              </ul>
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
@@ -127,10 +133,8 @@ export default class Play extends Component {
                       url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                     />}
                     <button onClick={this.playPrevSong} type="button" class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-step-forward"></span>Hello
                     </button>
                     <button onClick={this.playNextSong} type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-step-backward"></span>
                     </button>
               </div>
             </div>
