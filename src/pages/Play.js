@@ -32,6 +32,7 @@ export default class Play extends Component {
     this.setVolume = this.setVolume.bind(this);
     this.pauseSong = this.pauseSong.bind(this);
     this.playSong = this.playSong.bind(this);
+    this.removeSong = this.removeSong.bind(this);
     this.myRef = React.createRef();
   }
 
@@ -57,11 +58,15 @@ export default class Play extends Component {
       db.ref("queue").on("value", snapshot => {
         let queue = [];
         snapshot.forEach((snap) => {
-          queue.push(snap.val());
+          let data = snap.val();
+          queue.push({
+            videoId: data.videoId,
+            title: data.title,
+            id: snap.key,
+          });
         });
         this.setState({ queue });
         this.setState({ loadingQueue: false });
-        console.log(queue);
       })
     } catch (error) {
       this.setState({ readError: error.message, loadingQueue: false });
@@ -132,6 +137,15 @@ export default class Play extends Component {
     }
   }
 
+  async removeSong(id, index) {
+    if(index <= this.state.songIndex && this.state.songIndex > 0) {
+      this.setState({
+        songIndex: this.state.songIndex - 1
+      });
+    }
+    db.ref("queue/" + id).remove();
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ writeError: null });
@@ -142,8 +156,7 @@ export default class Play extends Component {
         timestamp: Date.now(),
         uid: this.state.user.email
       });
-      console.log(this.state.content)
-      if (this.state.content.startsWith("-p ")) { // if content contains the play keyword
+      if (this.state.content.startsWith("-p ")) {
         addSong(await searchVideo(this.state.content.substring(3)));
       }
       this.setState({ content: '' });
@@ -172,7 +185,7 @@ export default class Play extends Component {
                 <div className="textBox">
                   <ul>
                     {this.state.queue.map((song, i) => {
-                      return <li key={i}>{song.title}</li>
+                      return <li key={i}>{song.title}<button type="button" onClick={() => this.removeSong(song.id, i)}>Remove</button></li>
                     })}
                   </ul>
                 </div>
@@ -181,10 +194,10 @@ export default class Play extends Component {
             <div className="col-6 main-instructions-column">
               <div className="center">
                 {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                  <ReactPlayer
+                  <ReactPlayer  
                     volume={this.state.playerVolume}
                     onEnded={this.playNextSong}
-                    onReady={() => console.log("Playing song")}
+                    onReady={this.playSong}
                     onPlay={this.playSong}
                     onPause={this.pauseSong}
                     playing={this.state.isPlaying}

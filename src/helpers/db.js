@@ -24,7 +24,7 @@ export function addSong(request) {
     return db.ref("queue").push({
         title: request.title,
         videoId: request.videoId,
-    });
+    }).getKey();
 }
 
 export async function searchVideo(searchTerm) {
