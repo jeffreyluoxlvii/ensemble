@@ -20,6 +20,13 @@ export function writeChats(message) {
   });
 }
 
+export function addSong(request) {
+    return db.ref("queue").push({
+        title: request.title,
+        videoId: request.videoId,
+    });
+}
+
 export async function searchVideo(searchTerm) {
     const response = await youtube.get("/search", {
         params: {
@@ -27,5 +34,9 @@ export async function searchVideo(searchTerm) {
             q: searchTerm,
         },
     });
-    return response.data.items;
+    console.log(response.data.items);
+    return {
+        title: response.data.items[0].snippet.title,
+        videoId: response.data.items[0].id.videoId,
+    }
 }
