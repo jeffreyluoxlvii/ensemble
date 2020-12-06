@@ -127,7 +127,7 @@ export default class Play extends Component {
                       url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                     />}
                     <button onClick={this.playPrevSong} type="button" class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-step-forward"></span>
+                    <span class="glyphicon glyphicon-step-forward"></span>Hello
                     </button>
                     <button onClick={this.playNextSong} type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-step-backward"></span>
