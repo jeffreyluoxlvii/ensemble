@@ -6,6 +6,78 @@ body {
   background-color: #121212;
 }
 
+/* Header Styling */
+.logOut {
+  background-color: #121212;
+  color:#757575;
+  padding: 5px;
+  width: 100%;
+  border:none;
+}
+
+/* Login page Styling*/
+.logInButton {
+  background-color: #bc6ff1;
+  color:#272727;
+  border-radius:5px;
+  border-color: #bc6ff1;
+}
+.logInButton:hover {
+  background-color: #892cdc;
+  color:#272727;
+  border-radius:5px;
+  border-color: #892cdc;
+}
+.googleLogIn {
+  background-color: #bc6ff1;
+  color:#272727;
+  border-radius:5px;
+  border-color: #bc6ff1;
+}
+.googleLogIn:hover {
+  background-color: #892cdc;
+  color:#272727;
+  border-radius:5px;
+  border-color: #892cdc;
+}
+.form-control {
+  width: 40%;
+}
+
+/*Sign-up page Styling*/
+.signUpButton {
+  background-color: #bc6ff1;
+  color:#272727;
+  border-radius:5px;
+  border-color: #bc6ff1;
+}
+.signUpButton:hover {
+  background-color: #892cdc;
+  color:#272727;
+  border-radius:5px;
+  border-color: #892cdc;
+}
+.googleSignUp {
+  background-color: #bc6ff1;
+  color:#272727;
+  border-radius:5px;
+  border-color: #bc6ff1;
+}
+.googleSignUp:hover {
+  background-color: #892cdc;
+  color:#272727;
+  border-radius:5px;
+  border-color: #892cdc;
+}
+
+.logOut:hover {
+  background-color: #121212;
+  color:white;
+  padding: 5px;
+  width: 100%;
+  border:none;
+}
+
 .scroll {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
@@ -138,6 +210,14 @@ ol li:hover > .removeButton {
   width: 100%;
   border-color: #bc6ff1;
 }
+.sendButton:hover {
+  background-color: #892cdc;
+  color:white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  border-color: #892cdc;
+}
 
 .chat-area .chat-bubble.current-user {
   margin-left: auto;
@@ -146,9 +226,7 @@ ol li:hover > .removeButton {
   background-color: #bc6ff1;
 }
 
-.form-control {
-  width: 60%;
-}
+
 
 .footer {
   text-align: center;
@@ -227,14 +305,28 @@ ol li:hover > .removeButton {
   }
 }
 
+.soundIconLeft {
+  color: #bc6ff1;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.soundIconRight {
+  color: #bc6ff1;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-top:10px;
 }
 
 .range {
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 100%
+  width: 50%
 }
 
 input[type=range]::-webkit-slider-runnable-track {
