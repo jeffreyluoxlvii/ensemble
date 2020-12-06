@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 import './styles.css';
+import Home2 from "./pages/Home2";
 
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
@@ -74,7 +75,7 @@ class App extends Component {
     ) : (
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={this.state.authenticated ? Home2 : Home} />
             <PrivateRoute
               path="/play"
               authenticated={this.state.authenticated}
