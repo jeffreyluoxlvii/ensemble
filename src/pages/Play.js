@@ -5,6 +5,7 @@ import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 import ReactPlayer from 'react-player/youtube';
 
+
 export default class Play extends Component {
   _isMounted = false;
   constructor(props) {
@@ -142,10 +143,23 @@ export default class Play extends Component {
                       playing={true} 
                       url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                     />}
-                    <button onClick={this.playPrevSong} type="button" class="btn btn-info btn-lg">
-                    </button>
-                    <button onClick={this.playNextSong} type="button" class="btn btn-default">
-                    </button>
+                    <div className="buttonList">
+                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                        <i class="fa fa-backward"></i>
+                        </button>
+
+                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                        <i class="fa fa-play"></i>
+                        </button>
+
+                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                        <i class="fa fa-pause"></i>
+                        </button>
+
+                        <button className="buttonPadding" onClick={this.playNextSong} type="button">
+                        <i class="fa fa-forward"></i>
+                        </button>
+                    </div>
               </div>
             </div>
             <div className="col-3 main-command-column">
