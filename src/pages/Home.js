@@ -26,14 +26,3 @@ export default class HomePage extends Component {
     )
   }
 }
-
-{/*
-              <div className="container text-center py-5">
-              <h1 className="display-4">Welcome to Ensemble</h1>
-              <p className="lead">A great place to share music with friends</p>
-              <div className="mt-4">
-                <Link className="btn btn-primary px-5 mr-3" to="/signup">Create New Account</Link>
-                <Link className="btn px-5" to="/login">Login to Your Account</Link>
-              </div>
-            </div>
-*/}
