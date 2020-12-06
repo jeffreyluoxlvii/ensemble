@@ -13,7 +13,7 @@ export default class Play extends Component {
       user: auth().currentUser,
       chats: [],
       queue: [],
-      playerVolume: 0.5,
+      playerVolume: 0.26,
       content: '',
       readError: null,
       writeError: null,
@@ -185,7 +185,11 @@ export default class Play extends Component {
                 <div className="textBox">
                   <ol>
                     {this.state.queue.map((song, i) => {
-                      return <li className={(this.state.songIndex === i ? "highlighted" : "")} key={i} onClick={() => this.removeSong(song.id, i)}>{song.title}</li>
+                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")} onClick={() => updateIndex(i)} key={i}>
+                          {song.title}
+                          <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i>
+                        </li>
+                      )
                     })}
                   </ol>
                 </div>
