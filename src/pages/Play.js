@@ -5,11 +5,13 @@ import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 
 export default class Play extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
       user: auth().currentUser,
       chats: [],
+      videos: [],
       content: '',
       readError: null,
       writeError: null,
@@ -21,6 +23,7 @@ export default class Play extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     this.setState({ readError: null, loadingChats: true });
     const chatArea = this.myRef.current;
     try {
@@ -37,6 +40,10 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingChats: false });
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleChange(event) {
