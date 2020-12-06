@@ -12,6 +12,19 @@ body {
   overflow: scroll;
 }
 
+ol li:hover {
+  text-decoration: line-through;
+  color: rgb(255,53,127);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.highlighted {
+  color:rgba(59,173,227,1);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .scroll::-webkit-scrollbar {
   display: none;
 }
