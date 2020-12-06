@@ -178,6 +178,7 @@ export default class Play extends Component {
                     onPlay={this.playSong}
                     onPause={this.pauseSong}
                     playing={this.state.isPlaying}
+                    className="videoFormat"
                     url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                   />}
                 <div className="buttonList">
