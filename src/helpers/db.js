@@ -40,3 +40,7 @@ export async function searchVideo(searchTerm) {
         videoId: response.data.items[0].id.videoId,
     }
 }
+
+export function updateIndex(index) {
+    db.ref("index").set(index);
+}
