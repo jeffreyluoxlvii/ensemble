@@ -94,7 +94,8 @@ export default class Play extends Component {
     if(this.state.isPlaying) {
       this.setState({
         isPlaying: false,
-      }, () => pauseSongDb);
+      });
+      pauseSongDb();
     }
   }
 
@@ -102,7 +103,8 @@ export default class Play extends Component {
     if(!this.state.isPlaying) {
       this.setState({
         isPlaying: true,
-      }, () => playSongDb);
+      });
+      playSongDb();
     }
   }
 
@@ -171,6 +173,8 @@ export default class Play extends Component {
                     <ReactPlayer
                       onEnded={this.playNextSong} 
                       onReady={() => console.log("Playing song")} 
+                      onPlay={this.playSong}
+                      onPause={this.pauseSong}
                       playing={this.state.isPlaying} 
                       url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                     />}
@@ -179,11 +183,11 @@ export default class Play extends Component {
                         <i class="fa fa-backward"></i>
                         </button>
 
-                        <button className="buttonPadding" type="button">
+                        <button className="buttonPadding" onClick={this.playSong} type="button">
                         <i class="fa fa-play"></i>
                         </button>
 
-                        <button className="buttonPadding" type="button">
+                        <button className="buttonPadding" onClick={this.pauseSong} type="button">
                         <i class="fa fa-pause"></i>
                         </button>
 
