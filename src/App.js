@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import { auth } from "./services/firebase";
 import './styles.css';
 
+
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
     <Route
