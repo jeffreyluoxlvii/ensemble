@@ -14,6 +14,7 @@ export default class Play extends Component {
       user: auth().currentUser,
       chats: [],
       queue: [],
+      playerVolume: 0.5,
       content: '',
       readError: null,
       writeError: null,
@@ -26,8 +27,10 @@ export default class Play extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onEnterPress = this.onEnterPress.bind(this);
     this.playNextSong = this.playNextSong.bind(this);
     this.playPrevSong = this.playPrevSong.bind(this);
+    this.setVolume = this.setVolume.bind(this);
     this.pauseSong = this.pauseSong.bind(this);
     this.playSong = this.playSong.bind(this);
     this.myRef = React.createRef();
@@ -82,6 +85,12 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingPlayState: false });
     }
+  }
+
+  setVolume(event) {
+    this.setState({
+      playerVolume: event.target.valueAsNumber
+    })
   }
 
   handleChange(event) {
@@ -151,6 +160,13 @@ export default class Play extends Component {
     return time;
   }
 
+  onEnterPress = (e) => {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -160,19 +176,20 @@ export default class Play extends Component {
             <div className="col-3 main-instructions-column">
               <h4 className="titleBox">Current Queue: </h4>
               <div className="scroll">
-              <div className="textBox">
-                <ul>
-                  {this.state.queue.map((song, i) => {
-                    return <li key={i}>{song.title}</li>
-                  })}
-                </ul>
-              </div>
+                <div className="textBox">
+                  <ul>
+                    {this.state.queue.map((song, i) => {
+                      return <li key={i}>{song.title}</li>
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
                 {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
                   <ReactPlayer
+                    volume={this.state.playerVolume}
                     onEnded={this.playNextSong}
                     onReady={() => console.log("Playing song")}
                     onPlay={this.playSong}
@@ -186,7 +203,7 @@ export default class Play extends Component {
                     <i class="fa fa-backward"></i>
                   </button>
                   {
-                    (this.state.isPlaying) ? 
+                    (this.state.isPlaying) ?
                       <button className="buttonPadding" onClick={this.pauseSong} type="button">
                         <i class="fa fa-pause"></i>
                       </button> :
@@ -198,33 +215,38 @@ export default class Play extends Component {
                     <i class="fa fa-forward"></i>
                   </button>
                 </div>
+                <div>
+                  <input type="range" id="volume" name="volume"
+                    min={0} max={1} step={0.02} onChange={this.setVolume} value={this.state.playerVolume} />
+                  <label for="volume">Volume</label>
+                </div>
               </div>
             </div>
             <div className="col-3 main-command-column">
-                <div className="chat-area" ref={this.myRef}>
-                  {/* loading indicator */}
-                  {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div> : ""}
-                  {/* chat area */}
-                  {this.state.chats.map(chat => {
-                    return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
-                      {chat.content}
-                      <br />
-                      <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
-                    </p>
-                  })}
-                </div>
-                <div className = "form">
+              <div className="chat-area" ref={this.myRef}>
+                {/* loading indicator */}
+                {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div> : ""}
+                {/* chat area */}
+                {this.state.chats.map(chat => {
+                  return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
+                    {chat.content}
+                    <br />
+                    <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
+                  </p>
+                })}
+              </div>
+              <div className="form">
                 <form onSubmit={this.handleSubmit} className="mx-3">
-                  <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
+                  <textarea className="border border-color w-100 rounded" name="content" rows="2" onKeyDown={this.onEnterPress} onChange={this.handleChange} value={this.state.content}></textarea>
                   {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
                   <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Send</button>
                 </form>
-                </div>
-                <div className="logIn">
-                  Logged in as: <strong className="text2">{this.state.user.email}</strong>
-                </div>
+              </div>
+              <div className="logIn">
+                Logged in as: <strong className="text2">{this.state.user.email}</strong>
+              </div>
             </div>
           </div>
         </main>
