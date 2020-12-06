@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { addSong, searchVideo } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
+import ReactPlayer from 'react-player/youtube';
 
 export default class Play extends Component {
   _isMounted = false;
@@ -15,8 +16,8 @@ export default class Play extends Component {
       content: '',
       readError: null,
       writeError: null,
-      loadingQueue: false,
-      loadingChats: false,
+      loadingQueue: true,
+      loadingChats: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +25,7 @@ export default class Play extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ readError: null, loadingChats: true });
+    this.setState({ readError: null, loadingChats: true, loadingQueue: true });
     const chatArea = this.myRef.current;
     try {
       db.ref("chats").on("value", snapshot => {
@@ -47,7 +48,7 @@ export default class Play extends Component {
           queue.push(snap.val());
         });
         this.setState({ queue });
-        console.log(queue);
+        console.log(queue[0].videoId);
         this.setState({ loadingQueue: false });
       })
     } catch (error) {
@@ -95,6 +96,7 @@ export default class Play extends Component {
           {/*
           To be filled out with music player content
           */}
+          {this.state.loadingQueue ? null : <ReactPlayer onReady={() => console.log("ready")} playing={true} url={`https://youtu.be/${this.state.queue[0].videoId}`} />}
         </div>
         <div className="col-3 main-command-column">
           <div className="chat-area" ref={this.myRef}>
