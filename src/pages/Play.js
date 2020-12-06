@@ -112,7 +112,7 @@ export default class Play extends Component {
           */}
               {(this.state.loadingQueue || this.state.queue.length === 0) ? null :
                 <ReactPlayer
-                  playing={true} url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
+                  onEnded={this.playNextSong} playing={true} url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                 />}
               <button onClick={this.playNextSong}>
                 Next Song
