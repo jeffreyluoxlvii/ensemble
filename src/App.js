@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import {
   Route,
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Redirect
 } from "react-router-dom";
@@ -77,17 +77,17 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={this.state.authenticated ? Home2 : Home} />
             <PrivateRoute
-              path="/play"
+              exact path="/play"
               authenticated={this.state.authenticated}
               component={Play}
             />
             <PublicRoute
-              path="/signup"
+              exact path="/signup"
               authenticated={this.state.authenticated}
               component={Signup}
             />
             <PublicRoute
-              path="/login"
+              exact path="/login"
               authenticated={this.state.authenticated}
               component={Login}
             />
