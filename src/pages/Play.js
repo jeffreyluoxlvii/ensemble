@@ -5,7 +5,6 @@ import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 import ReactPlayer from 'react-player/youtube';
 
-
 export default class Play extends Component {
   _isMounted = false;
   constructor(props) {
@@ -205,27 +204,26 @@ export default class Play extends Component {
                     className="videoFormat"
                     url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                   />}
+
                 <div className="buttonList">
-                  <button className="buttonPadding" onClick={this.playPrevSong} type="button">
-                    <i class="fa fa-backward"></i>
+                  <button className="buttonPadding2" onClick={this.playPrevSong} type="button">
+                  <i class="fas fa-step-backward"></i>
                   </button>
                   {
                     (this.state.isPlaying) ?
                       <button className="buttonPadding" onClick={this.pauseSong} type="button">
-                        <i class="fa fa-pause"></i>
+                        <i class="fas fa-pause"></i>
                       </button> :
                       <button className="buttonPadding" onClick={this.playSong} type="button">
-                        <i class="fa fa-play"></i>
+                        <i class="fas fa-play"></i>
                       </button>
                   }
-                  <button className="buttonPadding" onClick={this.playNextSong} type="button">
-                    <i class="fa fa-forward"></i>
+                  <button className="buttonPadding2" onClick={this.playNextSong} type="button">
+                  <i class="fas fa-step-forward"></i>
                   </button>
                 </div>
-                <div>
-                  <input type="range" id="volume" name="volume"
-                    min={0} max={1} step={0.02} onChange={this.setVolume} value={this.state.playerVolume} />
-                  <label for="volume">Volume</label>
+                <div className="slider">
+                <input type="range" min="0" max="1" step="0.02" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
                 </div>
               </div>
             </div>
