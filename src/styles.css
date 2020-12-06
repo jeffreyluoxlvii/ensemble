@@ -121,7 +121,12 @@ ol li:hover {
   cursor: pointer;
 }
 
-ol li:hover > .removeButton {
+.flexBox {
+  display: inline-flex;
+  padding: 3px;
+}
+
+ol li:hover > .flexBox > .removeButton {
   visibility: visible;
 }
 
@@ -135,6 +140,7 @@ ol li:hover > .removeButton {
   color: white;
   visibility: hidden;
   padding-left: 10px;
+  padding-top: 4px;
 }
 
 .removeButton:hover {
