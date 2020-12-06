@@ -115,23 +115,24 @@ export default class Play extends Component {
         <main className="container-fluid d-flex h-100 flex-column">
           <Header />
           <div className="row main-container flex-fill">
-            <div className="col-9 main-instructions-column">
-              {/*
-          To be filled out with music player content
-          */}
-              {(this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                <ReactPlayer
-                  onEnded={this.playNextSong} 
-                  onReady={() => console.log("Playing song")} 
-                  playing={true} 
-                  url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
-                />}
-              <button onClick={this.playPrevSong}>
-                Previous Song
-              </button>
-              <button onClick={this.playNextSong}>
-                Next Song
-              </button>
+            <div className="col-3 main-instructions-column">
+            </div>
+            <div className="col-6 main-instructions-column">
+              <div className="center">
+                  {(this.state.loadingQueue || this.state.queue.length === 0) ? null :
+                    <ReactPlayer
+                      onEnded={this.playNextSong} 
+                      onReady={() => console.log("Playing song")} 
+                      playing={true} 
+                      url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
+                    />}
+                    <button onClick={this.playPrevSong} type="button" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-step-forward"></span>
+                    </button>
+                    <button onClick={this.playNextSong} type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-step-backward"></span>
+                    </button>
+              </div>
             </div>
             <div className="col-3 main-command-column">
               <div className="chat-area" ref={this.myRef}>
