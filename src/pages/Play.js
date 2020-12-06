@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 
-export default class Chat extends Component {
+export default class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
