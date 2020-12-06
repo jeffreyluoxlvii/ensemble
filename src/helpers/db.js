@@ -1,4 +1,6 @@
 import { db } from "../services/firebase";
+import youtube from "../services/youtube";
+import { baseTerms } from "../services/youtube";
 
 export function readChats() {
   let abc = [];
@@ -16,4 +18,14 @@ export function writeChats(message) {
     timestamp: message.timestamp,
     uid: message.uid
   });
+}
+
+export async function searchVideo(searchTerm) {
+    const response = await youtube.get("/search", {
+        params: {
+            ...baseTerms,
+            q: searchTerm,
+        },
+    });
+    return response.data.items;
 }
