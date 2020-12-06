@@ -47,13 +47,13 @@ export default class Login extends Component {
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
-          <h1>
+          <h1 className="text1">
             Login to
             <Link className="title ml-2" to="/">
-              Ensemble
+              <h1 className="text2">Ensemble</h1>
             </Link>
           </h1>
-          <p className="lead">
+          <p className="text">
             Fill in the form below to login to your account.
           </p>
           <div className="form-group">
@@ -82,13 +82,13 @@ export default class Login extends Component {
             ) : null}
             <button className="btn btn-primary px-5" type="submit">Login</button>
           </div>
-          <p>You can also log in with any of these services</p>
+          <p className="text">You can also log in with any of these services</p>
           <button className="btn btn-danger mr-2" type="button" onClick={this.googleSignIn}>
             Sign in with Google
           </button>
           <hr />
-          <p>
-            Don't have an account? <Link to="/signup">Sign up</Link>
+          <p className="text1">
+            Don't have an account? <Link to="/signup"><p className = "text2">Sign up</p></Link>
           </p>
         </form>
 
