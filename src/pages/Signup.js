@@ -60,10 +60,10 @@ export default class SignUp extends Component {
           </div>
           <div className="form-group">
             {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-            <button className="btn btn-primary px-5" type="submit">Sign up</button>
+            <button className="signUpButton" type="submit">Sign up</button>
           </div>
           <p className="text">You can also sign up with any of these services</p>
-          <button className="btn btn-danger mr-2" type="button" onClick={this.googleSignIn}>
+          <button className="googleSignUp" type="button" onClick={this.googleSignIn}>
             Sign up with Google
           </button>
           <hr></hr>
