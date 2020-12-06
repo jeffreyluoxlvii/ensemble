@@ -172,7 +172,7 @@ export default class Play extends Component {
   }
 
   onEnterPress = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       this.handleSubmit(e);
     }
