@@ -16,7 +16,7 @@ function Header() {
               <button className="logOut" onClick={() => auth().signOut()}>Logout</button>
             </div>
             : <div className="navbar-nav">
-              <Link className="nav-item nav-link mr-3" to="/login">Sign In</Link>
+              <Link className="nav-item nav-link mr-3" to="/login">Log In</Link>
               <Link className="nav-item nav-link mr-3" to="/signup">Sign Up</Link>
             </div>}
         </div>
