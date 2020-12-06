@@ -127,12 +127,14 @@ export default class Play extends Component {
           <Header />
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
-              Current Queue: 
-              <ul>
-                {this.state.queue.map(song => {
-                  return <li key={song.videoId}>{song.title}</li>
-                })}
-              </ul>
+              <div className="textBox">
+                Current Queue: 
+                <ul>
+                  {this.state.queue.map(song => {
+                    return <li key={song.videoId}>{song.title}</li>
+                  })}
+                </ul>
+              </div>
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
@@ -163,27 +165,29 @@ export default class Play extends Component {
               </div>
             </div>
             <div className="col-3 main-command-column">
-              <div className="chat-area" ref={this.myRef}>
-                {/* loading indicator */}
-                {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div> : ""}
-                {/* chat area */}
-                {this.state.chats.map(chat => {
-                  return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
-                    {chat.content}
-                    <br />
-                    <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
-                  </p>
-                })}
-              </div>
-              <form onSubmit={this.handleSubmit} className="mx-3">
-                <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
-                {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Play</button>
-              </form>
-              <div className="py-5 mx-3">
-                Logged in as: <strong className="text-info">{this.state.user.email}</strong>
+              <div className="rightColumn">
+                  <div className="chat-area" ref={this.myRef}>
+                    {/* loading indicator */}
+                    {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div> : ""}
+                    {/* chat area */}
+                    {this.state.chats.map(chat => {
+                      return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
+                        {chat.content}
+                        <br />
+                        <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
+                      </p>
+                    })}
+                  </div>
+                  <form onSubmit={this.handleSubmit} className="mx-3">
+                    <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
+                    {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
+                    <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Play</button>
+                  </form>
+                  <div className="logIn">
+                    Logged in as: <strong className="text2">{this.state.user.email}</strong>
+                  </div>
               </div>
             </div>
           </div>

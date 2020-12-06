@@ -32,6 +32,11 @@ body {
   color: #ffffff;
 }
 
+.textBox {
+  color: #ffffff;
+  margin-top: 45vh;
+}
+
 .text1 {
   color: #ffffff;
   display: inline;
@@ -41,9 +46,13 @@ body {
   display: inline;
 }
 
+.rightColumn {
+  height:80vh;
+}
+
 .chat-area {
   padding: 20px;
-  height: 400px;
+  height: 65vh;
   overflow-y: scroll;
 }
 
@@ -97,9 +106,16 @@ body {
   background-color:#bc6ff1;
   margin-left:10px;
   margin-right:10px;
+  margin-top:10px;
   border: none;
+  border-radius: 20%;
+  width: 8%;
 }
 
+.logIn{
+  color:white;
+  padding-top:15px;
+}
 .btn-submit {
   background-color: #000000;
   color: white;
