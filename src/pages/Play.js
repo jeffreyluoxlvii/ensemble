@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
-import { searchVideo } from "../helpers/db";
+import { addSong, searchVideo } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 
@@ -62,6 +62,7 @@ export default class Play extends Component {
         timestamp: Date.now(),
         uid: this.state.user.uid
       });
+      addSong(searchVideo(this.state.content));
       console.log(searchVideo(this.state.content));
       this.setState({ content: '' });
       chatArea.scrollBy(0, chatArea.scrollHeight);
