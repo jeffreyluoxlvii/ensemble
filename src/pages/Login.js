@@ -41,21 +41,25 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="logInBox">
         <form
           className="mt-5 py-5 px-5"
           autoComplete="off"
           onSubmit={this.handleSubmit}
         >
+          <div className="logInBox">
           <h1 className="text1">
-            Login to
+            Login to 
             <Link className="title ml-2" to="/">
               <h1 className="text2">Ensemble</h1>
             </Link>
           </h1>
+          </div>
+          <div className="logInBox">
           <p className="text">
             Fill in the form below to login to your account.
           </p>
+          </div>
           <div className="form-group">
             <input
               className="form-control"
@@ -76,20 +80,30 @@ export default class Login extends Component {
               type="password"
             />
           </div>
+          <div className="logInBox">
           <div className="form-group">
             {this.state.error ? (
               <p className="text-danger">{this.state.error}</p>
             ) : null}
-            <button className="logInButton" type="submit">Login</button>
+            <div className="logInBox"><button className="logInButton" type="submit">Login</button></div>
           </div>
-          <p className="text">You can also log in with any of these services</p>
+          </div>
+          <div className="logInBox">
+          <p className="text">You can also log in with any of these services: </p>
+          </div>
+
+          <div className="logInBox">
           <button className="googleLogIn" type="button" onClick={this.googleSignIn}>
-            Sign in with Google
+          <i class="fab fa-google"></i>
           </button>
+          </div>
           <hr />
+          <div className="logInBox">
           <p className="text1">
             Don't have an account? <Link to="/signup"><p className = "text2">Sign up</p></Link>
           </p>
+          </div>
+
         </form>
 
       </div>

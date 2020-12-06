@@ -15,7 +15,7 @@ export default class HomePage extends Component {
                     <h1 className="text2"> Ensemble</h1>
                     <p className="text">A great place to stream music with friends</p>
                     <div className="mt-4">
-                      <Link className="btn px-5  mr-3" to="/login">Login In</Link>
+                      <Link className="btn px-5  mr-3" to="/login">Log In</Link>
                       <Link className="btn px-5" to="/signup">Sign Up</Link>
 
                     </div>
