@@ -182,10 +182,10 @@ export default class Play extends Component {
             <div className="col-6 main-instructions-column">
               <div className="center">
                 {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                  <ReactPlayer
+                  <ReactPlayer  
                     volume={this.state.playerVolume}
                     onEnded={this.playNextSong}
-                    onReady={() => console.log("Playing song")}
+                    onReady={this.playSong}
                     onPlay={this.playSong}
                     onPause={this.pauseSong}
                     playing={this.state.isPlaying}
