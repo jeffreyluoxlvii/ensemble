@@ -53,6 +53,7 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingChats: false });
     }
+    this.scrollToBottom();
     // fetch the queue
     try {
       db.ref("queue").on("value", snapshot => {
@@ -89,6 +90,10 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingPlayState: false });
     }
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   setVolume(event) {
@@ -138,7 +143,7 @@ export default class Play extends Component {
   }
 
   async removeSong(id, index) {
-    if(index <= this.state.songIndex && this.state.songIndex > 0) {
+    if (index <= this.state.songIndex && this.state.songIndex > 0) {
       this.setState({
         songIndex: this.state.songIndex - 1
       }, () => updateIndex(this.state.songIndex));
@@ -173,6 +178,10 @@ export default class Play extends Component {
     }
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
   render() {
     return (
       <div>
@@ -185,10 +194,10 @@ export default class Play extends Component {
                 <div className="textBox">
                   <ol>
                     {this.state.queue.map((song, i) => {
-                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")} onClick={() => updateIndex(i)} key={i}>
-                          {song.title}
-                          <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i>
-                        </li>
+                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")}  key={i}>
+                        <div onClick={() => updateIndex(i)}>{song.title}</div>
+                        <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i>
+                      </li>
                       )
                     })}
                   </ol>
@@ -198,7 +207,7 @@ export default class Play extends Component {
             <div className="col-6 main-instructions-column">
               <div className="center">
                 {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                  <ReactPlayer  
+                  <ReactPlayer
                     volume={this.state.playerVolume}
                     onEnded={this.playNextSong}
                     onReady={this.playSong}
@@ -211,7 +220,7 @@ export default class Play extends Component {
 
                 <div className="buttonList">
                   <button className="buttonPadding2" onClick={this.playPrevSong} type="button">
-                  <i class="fas fa-step-backward"></i>
+                    <i class="fas fa-step-backward"></i>
                   </button>
                   {
                     (this.state.isPlaying) ?
@@ -223,11 +232,11 @@ export default class Play extends Component {
                       </button>
                   }
                   <button className="buttonPadding2" onClick={this.playNextSong} type="button">
-                  <i class="fas fa-step-forward"></i>
+                    <i class="fas fa-step-forward"></i>
                   </button>
                 </div>
                 <div className="slider">
-                <input type="range" min="0" max="1" step="0.02" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
+                  <input type="range" min="0" max="1" step="0.02" onChange={this.setVolume} value={this.state.playerVolume} class="range blue" />
                 </div>
               </div>
             </div>
@@ -245,6 +254,9 @@ export default class Play extends Component {
                     <span className="chat-time float-right">{chat.uid}</span>
                   </p>
                 })}
+                <div style={{ float: "left", clear: "both" }}
+                  ref={(el) => { this.messagesEnd = el; }}>
+                </div>
               </div>
               <div className="form">
                 <form onSubmit={this.handleSubmit} className="mx-3">
