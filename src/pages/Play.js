@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
+import { searchVideo } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 
-export default class Chat extends Component {
+export default class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +55,7 @@ export default class Chat extends Component {
         timestamp: Date.now(),
         uid: this.state.user.uid
       });
+      console.log(searchVideo(this.state.content));
       this.setState({ content: '' });
       chatArea.scrollBy(0, chatArea.scrollHeight);
     } catch (error) {
