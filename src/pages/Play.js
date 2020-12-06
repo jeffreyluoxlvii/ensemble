@@ -13,7 +13,7 @@ export default class Play extends Component {
       user: auth().currentUser,
       chats: [],
       queue: [],
-      playerVolume: 0.5,
+      playerVolume: 0.26,
       content: '',
       readError: null,
       writeError: null,
@@ -141,7 +141,7 @@ export default class Play extends Component {
     if(index <= this.state.songIndex && this.state.songIndex > 0) {
       this.setState({
         songIndex: this.state.songIndex - 1
-      });
+      }, () => updateIndex(this.state.songIndex));
     }
     db.ref("queue/" + id).remove();
   }
@@ -183,11 +183,15 @@ export default class Play extends Component {
               <h4 className="titleBox">Current Queue: </h4>
               <div className="scroll">
                 <div className="textBox">
-                  <ul>
+                  <ol>
                     {this.state.queue.map((song, i) => {
-                      return <li key={i}>{song.title}<button type="button" onClick={() => this.removeSong(song.id, i)}>Remove</button></li>
+                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")} onClick={() => updateIndex(i)} key={i}>
+                          {song.title}
+                          <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i>
+                        </li>
+                      )
                     })}
-                  </ul>
+                  </ol>
                 </div>
               </div>
             </div>
