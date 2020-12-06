@@ -20,9 +20,10 @@ export function writeChats(message) {
   });
 }
 
-export function addSong(songId) {
-    return db.ref("songs").push({
-        songId: songId,
+export function addSong(request) {
+    return db.ref("queue").push({
+        title: request.title,
+        videoId: request.videoId,
     });
 }
 
@@ -33,5 +34,9 @@ export async function searchVideo(searchTerm) {
             q: searchTerm,
         },
     });
-    return response.data.items[0].id.videoId;
+    console.log(response.data.items);
+    return {
+        title: response.data.items[0].snippet.title,
+        videoId: response.data.items[0].id.videoId,
+    }
 }

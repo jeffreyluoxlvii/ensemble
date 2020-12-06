@@ -11,11 +11,12 @@ export default class Play extends Component {
     this.state = {
       user: auth().currentUser,
       chats: [],
-      videos: [],
+      queue: [],
       content: '',
       readError: null,
       writeError: null,
-      loadingChats: false
+      loadingQueue: false,
+      loadingChats: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +24,6 @@ export default class Play extends Component {
   }
 
   async componentDidMount() {
-    this._isMounted = true;
     this.setState({ readError: null, loadingChats: true });
     const chatArea = this.myRef.current;
     try {
@@ -40,10 +40,19 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingChats: false });
     }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+    try {
+      db.ref("queue").on("value", snapshot => {
+        let queue = [];
+        snapshot.forEach((snap) => {
+          queue.push(snap.val());
+        });
+        this.setState({ queue });
+        console.log(queue);
+        this.setState({ loadingQueue: false });
+      })
+    } catch (error) {
+      this.setState({ readError: error.message, loadingQueue: false });
+    }
   }
 
   handleChange(event) {
@@ -62,8 +71,7 @@ export default class Play extends Component {
         timestamp: Date.now(),
         uid: this.state.user.uid
       });
-      addSong(searchVideo(this.state.content));
-      console.log(searchVideo(this.state.content));
+      addSong(await searchVideo(this.state.content));
       this.setState({ content: '' });
       chatArea.scrollBy(0, chatArea.scrollHeight);
     } catch (error) {
