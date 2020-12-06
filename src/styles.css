@@ -1,12 +1,43 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
+
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #fcfcfc;
+  background-color: #121212;
 }
 
-.chat-area, .home {
+
+.chat-area {
   margin-top: 60px;
+}
+
+
+.fullPage {
+  height: 100%;
+}
+
+.mainSection {
+  margin-top:60px;
+  height: 80vh;
+  background-color: #121212;
+}
+
+.center{
+  position:fixed;
+  top:25%;
+  left: 30%;
+}
+.text {
+  color: #ffffff;
+}
+
+.text1 {
+  color: #ffffff;
+  display: inline;
+}
+.text2 {
+  color: #892cdc;
+  display: inline;
 }
 
 .chat-area {
@@ -40,17 +71,27 @@ body {
   width: 60%;
 }
 
+.footer {
+  text-align: center;
+  color: white;
+}
 .form-control:focus {
   box-shadow: none;
 }
 
 .btn {
   margin-top: 10px;
+  background-color:#bc6ff1;
+  border: none;
 }
 
 .btn-submit {
   background-color: #000000;
   color: white;
+}
+
+.navbar-custom {
+  background-color: #272727;
 }
 
 @media screen and (max-width: 767px) {
