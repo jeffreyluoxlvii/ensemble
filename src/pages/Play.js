@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
-import { addSong, searchVideo, updateIndex } from "../helpers/db";
+import { addSong, pauseSongDb, playSongDb, searchVideo, updateIndex } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 import ReactPlayer from 'react-player/youtube';
@@ -17,15 +17,19 @@ export default class Play extends Component {
       content: '',
       readError: null,
       writeError: null,
+      isPlaying: true,
       loadingQueue: true,
       loadingChats: true,
       loadingIndex: true,
+      loadingPlayState: true,
       songIndex: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.playNextSong = this.playNextSong.bind(this);
     this.playPrevSong = this.playPrevSong.bind(this);
+    this.pauseSong = this.pauseSong.bind(this);
+    this.playSong = this.playSong.bind(this);
     this.myRef = React.createRef();
   }
 
@@ -65,9 +69,18 @@ export default class Play extends Component {
         const index = snapshot.val();
         this.setState({ songIndex: index });
         this.setState({ loadingIndex: false });
-    });
+      });
     } catch (error) {
       this.setState({ readError: error.message, loadingIndex: false });
+    }
+    try {
+      db.ref("isPlaying").on("value", snapshot => {
+        const val = snapshot.val();
+        this.setState({ isPlaying: val });
+        this.setState({ loadingPlayState: false });
+      });
+    } catch (error) {
+      this.setState({ readError: error.message, loadingPlayState: false });
     }
   }
 
@@ -77,8 +90,26 @@ export default class Play extends Component {
     });
   }
 
+  pauseSong() {
+    if (this.state.isPlaying) {
+      this.setState({
+        isPlaying: false,
+      });
+      pauseSongDb();
+    }
+  }
+
+  playSong() {
+    if (!this.state.isPlaying) {
+      this.setState({
+        isPlaying: true,
+      });
+      playSongDb();
+    }
+  }
+
   playNextSong() {
-    if(this.state.songIndex + 1 < this.state.queue.length) {
+    if (this.state.songIndex + 1 < this.state.queue.length) {
       this.setState({
         songIndex: this.state.songIndex + 1,
       }, () => updateIndex(this.state.songIndex));
@@ -86,7 +117,7 @@ export default class Play extends Component {
   }
 
   playPrevSong() {
-    if(this.state.songIndex - 1 >= 0) {
+    if (this.state.songIndex - 1 >= 0) {
       this.setState({
         songIndex: this.state.songIndex - 1,
       }, () => updateIndex(this.state.songIndex));
@@ -128,66 +159,68 @@ export default class Play extends Component {
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
               <div className="textBox">
-                Current Queue: 
+                Current Queue:
                 <ul>
-                  {this.state.queue.map(song => {
-                    return <li key={song.videoId}>{song.title}</li>
+                  {this.state.queue.map((song, i) => {
+                    return <li key={i}>{song.title}</li>
                   })}
                 </ul>
               </div>
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
-                  {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                    <ReactPlayer
-                      onEnded={this.playNextSong} 
-                      onReady={() => console.log("Playing song")} 
-                      playing={true} 
-                      url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
-                    />}
-                    <div className="buttonList">
-                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
-                        <i class="fa fa-backward"></i>
-                        </button>
-
-                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
-                        <i class="fa fa-play"></i>
-                        </button>
-
-                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
+                  <ReactPlayer
+                    onEnded={this.playNextSong}
+                    onReady={() => console.log("Playing song")}
+                    onPlay={this.playSong}
+                    onPause={this.pauseSong}
+                    playing={this.state.isPlaying}
+                    url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
+                  />}
+                <div className="buttonList">
+                  <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                    <i class="fa fa-backward"></i>
+                  </button>
+                  {
+                    (this.state.isPlaying) ? 
+                      <button className="buttonPadding" onClick={this.pauseSong} type="button">
                         <i class="fa fa-pause"></i>
-                        </button>
-
-                        <button className="buttonPadding" onClick={this.playNextSong} type="button">
-                        <i class="fa fa-forward"></i>
-                        </button>
-                    </div>
+                      </button> :
+                      <button className="buttonPadding" onClick={this.playSong} type="button">
+                        <i class="fa fa-play"></i>
+                      </button>
+                  }
+                  <button className="buttonPadding" onClick={this.playNextSong} type="button">
+                    <i class="fa fa-forward"></i>
+                  </button>
+                </div>
               </div>
             </div>
             <div className="col-3 main-command-column">
               <div className="rightColumn">
-                  <div className="chat-area" ref={this.myRef}>
-                    {/* loading indicator */}
-                    {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div> : ""}
-                    {/* chat area */}
-                    {this.state.chats.map(chat => {
-                      return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
-                        {chat.content}
-                        <br />
-                        <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
-                      </p>
-                    })}
-                  </div>
-                  <form onSubmit={this.handleSubmit} className="mx-3">
-                    <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
-                    {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                    <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Play</button>
-                  </form>
-                  <div className="logIn">
-                    Logged in as: <strong className="text2">{this.state.user.email}</strong>
-                  </div>
+                <div className="chat-area" ref={this.myRef}>
+                  {/* loading indicator */}
+                  {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div> : ""}
+                  {/* chat area */}
+                  {this.state.chats.map(chat => {
+                    return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
+                      {chat.content}
+                      <br />
+                      <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
+                    </p>
+                  })}
+                </div>
+                <form onSubmit={this.handleSubmit} className="mx-3">
+                  <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
+                  {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
+                  <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Play</button>
+                </form>
+                <div className="logIn">
+                  Logged in as: <strong className="text2">{this.state.user.email}</strong>
+                </div>
               </div>
             </div>
           </div>
