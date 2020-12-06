@@ -60,6 +60,10 @@ body {
   justify-content: center;
 }
 
+textarea:focus::placeholder {
+  color: transparent;
+}
+
 /*Sign-up page Styling*/
 .signUpButton {
   background-color: #bc6ff1;
