@@ -24,8 +24,9 @@ body {
 
 .center{
   position:fixed;
-  top:25%;
-  left: 30%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
 }
 .text {
   color: #ffffff;
