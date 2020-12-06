@@ -23,6 +23,7 @@ export default class Play extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.playNextSong = this.playNextSong.bind(this);
+    this.playPrevSong = this.playPrevSong.bind(this);
     this.myRef = React.createRef();
   }
 
@@ -73,6 +74,14 @@ export default class Play extends Component {
     }
   }
 
+  playPrevSong() {
+    if(this.state.songIndex - 1 >= 0) {
+      this.setState({
+        songIndex: this.state.songIndex - 1,
+      }, () => console.log(this.state.queue[this.state.songIndex]));
+    }
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ writeError: null });
@@ -112,8 +121,14 @@ export default class Play extends Component {
           */}
               {(this.state.loadingQueue || this.state.queue.length === 0) ? null :
                 <ReactPlayer
-                  onEnded={this.playNextSong} playing={true} url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
+                  onEnded={this.playNextSong} 
+                  onReady={() => console.log("Playing song")} 
+                  playing={true} 
+                  url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                 />}
+              <button onClick={this.playPrevSong}>
+                Previous Song
+              </button>
               <button onClick={this.playNextSong}>
                 Next Song
               </button>
