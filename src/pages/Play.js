@@ -227,9 +227,7 @@ export default class Play extends Component {
                   </button>
                 </div>
                 <div className="slider">
-                <div className="soundIconLeft"><i class="fas fa-volume-off"></i></div>
-                <input type="range" min="0" max="1" step="0.01" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
-                <div className="soundIconRight"><i class="fas fa-volume-up"></i></div>
+                <input type="range" min="0" max="1" step="0.02" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
                 </div>
               </div>
             </div>
@@ -250,7 +248,7 @@ export default class Play extends Component {
               </div>
               <div className="form">
                 <form onSubmit={this.handleSubmit} className="mx-3">
-                  <textarea className="border border-color w-100 rounded" name="content" rows="2" onKeyDown={this.onEnterPress} onChange={this.handleChange} value={this.state.content}></textarea>
+                  <textarea className="border border-color w-100 rounded" name="content" rows="2" onKeyDown={this.onEnterPress} onChange={this.handleChange} value={this.state.content} placeholder="Type your message here! Type '-p [songname]' to queue a song."></textarea>
                   {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
                   <button type="submit" className="sendButton">Send</button>
                 </form>
