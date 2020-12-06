@@ -13,16 +13,29 @@ body {
 }
 
 ol li:hover {
-  text-decoration: line-through;
-  color: rgb(255,53,127);
+  color:rgba(59,173,227,1);
   font-weight: bold;
   cursor: pointer;
 }
 
+ol li:hover > .removeButton {
+  visibility: visible;
+}
+
 .highlighted {
-  color:rgba(59,173,227,1);
+  color:rgb(153, 90, 205);
   font-weight: bold;
   text-decoration: underline;
+}
+
+.removeButton {
+  color: white;
+  visibility: hidden;
+  padding-left: 10px;
+}
+
+.removeButton:hover {
+  color: red;
 }
 
 .scroll::-webkit-scrollbar {
