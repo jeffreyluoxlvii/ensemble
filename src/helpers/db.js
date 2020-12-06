@@ -42,5 +42,13 @@ export async function searchVideo(searchTerm) {
 }
 
 export function updateIndex(index) {
-    db.ref("index").set(index);
+  db.ref("index").set(index);
+}
+
+export function pauseSongDb() {
+  db.ref("isPlaying").set(false);
+}
+
+export function playSongDb() {
+  db.ref("isPlaying").set(true);
 }
