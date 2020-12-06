@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
-import { addSong, searchVideo } from "../helpers/db";
+import { addSong, searchVideo, updateIndex } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 import ReactPlayer from 'react-player/youtube';
@@ -18,6 +18,7 @@ export default class Play extends Component {
       writeError: null,
       loadingQueue: true,
       loadingChats: true,
+      loadingIndex: true,
       songIndex: 0,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -58,6 +59,15 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingQueue: false });
     }
+    try {
+      db.ref("index").on("value", snapshot => {
+        const index = snapshot.val();
+        this.setState({ songIndex: index });
+        this.setState({ loadingIndex: false });
+    });
+    } catch (error) {
+      this.setState({ readError: error.message, loadingIndex: false });
+    }
   }
 
   handleChange(event) {
@@ -70,7 +80,7 @@ export default class Play extends Component {
     if(this.state.songIndex + 1 < this.state.queue.length) {
       this.setState({
         songIndex: this.state.songIndex + 1,
-      }, () => console.log(this.state.queue[this.state.songIndex]));
+      }, () => updateIndex(this.state.songIndex));
     }
   }
 
@@ -78,7 +88,7 @@ export default class Play extends Component {
     if(this.state.songIndex - 1 >= 0) {
       this.setState({
         songIndex: this.state.songIndex - 1,
-      }, () => console.log(this.state.queue[this.state.songIndex]));
+      }, () => updateIndex(this.state.songIndex));
     }
   }
 
@@ -125,7 +135,7 @@ export default class Play extends Component {
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
-                  {(this.state.loadingQueue || this.state.queue.length === 0) ? null :
+                  {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
                     <ReactPlayer
                       onEnded={this.playNextSong} 
                       onReady={() => console.log("Playing song")} 
