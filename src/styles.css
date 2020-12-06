@@ -20,8 +20,12 @@ body {
   background-color: #bc6ff1;
   color:#272727;
   border-radius:5px;
-  width:50vh;
-  height: 5vh;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
   border-color: #bc6ff1;
 }
 .logInButton:hover {
@@ -29,6 +33,12 @@ body {
   color:#272727;
   border-radius:5px;
   border-color: #892cdc;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
 }
 .googleLogIn {
   background-color:#121212;
@@ -54,6 +64,13 @@ body {
 .form-control {
   width: 100%;
 }
+.form-control2 {
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+}
 .logInBox {
   display: flex;
   align-items: center;
@@ -68,9 +85,12 @@ textarea:focus::placeholder {
 .signUpButton {
   background-color: #bc6ff1;
   color:#272727;
-  border-radius:5px;
-  width:55vh;
-  height: 5vh;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
   border-color: #bc6ff1;
 }
 .signUpButton:hover {
@@ -78,6 +98,12 @@ textarea:focus::placeholder {
   color:#272727;
   border-radius:5px;
   border-color: #892cdc;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
 }
 .googleSignUp {
   background-color:#121212;

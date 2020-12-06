@@ -43,7 +43,7 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className="logInBox">
+
         <form className="mt-5 py-5 px-5" onSubmit={this.handleSubmit}>
         <div className="logInBox">
         <h1 className="text1">
@@ -56,15 +56,17 @@ export default class SignUp extends Component {
         <div className="logInBox">
           <p className="text">Fill in the form below to create an account.</p>
           </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email}></input>
+          <div className="logInBox">
+            <input className="form-control2" placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email}></input>
           </div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" onChange={this.handleChange} value={this.state.password} type="password"></input>
+          <div className="logInBox">
+            <input className="form-control2" placeholder="Password" name="password" onChange={this.handleChange} value={this.state.password} type="password"></input>
           </div>
+          <div className="logInBox">
           <div className="form-group">
             {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
             <button className="signUpButton" type="submit">Sign up</button>
+          </div>
           </div>
           <div className="logInBox">
           <p className="text">You can also sign up with any of these services:</p>
@@ -79,7 +81,7 @@ export default class SignUp extends Component {
           <p className="text1">Already have an account? <Link to="/login"><p className="text2">Login</p></Link></p>
           </div>
         </form>
-      </div>
+
     )
   }
 }

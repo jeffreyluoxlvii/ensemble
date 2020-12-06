@@ -41,7 +41,6 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="logInBox">
         <form
           className="mt-5 py-5 px-5"
           autoComplete="off"
@@ -60,9 +59,9 @@ export default class Login extends Component {
             Fill in the form below to login to your account.
           </p>
           </div>
-          <div className="form-group">
+          <div className="logInBox">
             <input
-              className="form-control"
+              className="form-control2"
               placeholder="Email"
               name="email"
               type="email"
@@ -70,9 +69,9 @@ export default class Login extends Component {
               value={this.state.email}
             />
           </div>
-          <div className="form-group">
+          <div className="logInBox">
             <input
-              className="form-control"
+              className="form-control2"
               placeholder="Password"
               name="password"
               onChange={this.handleChange}
@@ -105,8 +104,6 @@ export default class Login extends Component {
           </div>
 
         </form>
-
-      </div>
     );
   }
 }
