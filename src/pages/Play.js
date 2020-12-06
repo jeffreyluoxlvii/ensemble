@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
-import { addSong, searchVideo, updateIndex } from "../helpers/db";
+import { addSong, pauseSongDb, playSongDb, searchVideo, updateIndex } from "../helpers/db";
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 import ReactPlayer from 'react-player/youtube';
@@ -17,15 +17,19 @@ export default class Play extends Component {
       content: '',
       readError: null,
       writeError: null,
+      isPlaying: true,
       loadingQueue: true,
       loadingChats: true,
       loadingIndex: true,
+      loadingPlayState: true,
       songIndex: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.playNextSong = this.playNextSong.bind(this);
     this.playPrevSong = this.playPrevSong.bind(this);
+    this.pauseSong = this.pauseSong.bind(this);
+    this.playSong = this.playSong.bind(this);
     this.myRef = React.createRef();
   }
 
@@ -69,12 +73,37 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ readError: error.message, loadingIndex: false });
     }
+    try {
+      db.ref("isPlaying").on("value", snapshot => {
+        const val = snapshot.val();
+        this.setState({ isPlaying: val });
+        this.setState({ loadingPlayState: false });
+      });
+    } catch (error) {
+      this.setState({ readError: error.message, loadingPlayState: false });
+    }
   }
 
   handleChange(event) {
     this.setState({
       content: event.target.value
     });
+  }
+
+  pauseSong() {
+    if(this.state.isPlaying) {
+      this.setState({
+        isPlaying: false,
+      }, () => pauseSongDb);
+    }
+  }
+
+  playSong() {
+    if(!this.state.isPlaying) {
+      this.setState({
+        isPlaying: true,
+      }, () => playSongDb);
+    }
   }
 
   playNextSong() {
@@ -130,8 +159,8 @@ export default class Play extends Component {
               <div className="textBox">
                 Current Queue: 
                 <ul>
-                  {this.state.queue.map(song => {
-                    return <li key={song.videoId}>{song.title}</li>
+                  {this.state.queue.map((song, i) => {
+                    return <li key={i}>{song.title}</li>
                   })}
                 </ul>
               </div>
@@ -142,7 +171,7 @@ export default class Play extends Component {
                     <ReactPlayer
                       onEnded={this.playNextSong} 
                       onReady={() => console.log("Playing song")} 
-                      playing={true} 
+                      playing={this.state.isPlaying} 
                       url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                     />}
                     <div className="buttonList">
@@ -150,11 +179,11 @@ export default class Play extends Component {
                         <i class="fa fa-backward"></i>
                         </button>
 
-                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                        <button className="buttonPadding" type="button">
                         <i class="fa fa-play"></i>
                         </button>
 
-                        <button className="buttonPadding" onClick={this.playPrevSong} type="button">
+                        <button className="buttonPadding" type="button">
                         <i class="fa fa-pause"></i>
                         </button>
 
