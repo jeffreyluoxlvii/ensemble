@@ -189,6 +189,7 @@ export default class Play extends Component {
                     onPlay={this.playSong}
                     onPause={this.pauseSong}
                     playing={this.state.isPlaying}
+                    className="videoFormat"
                     url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                   />}
                 <div className="buttonList">
@@ -234,7 +235,7 @@ export default class Play extends Component {
                 <form onSubmit={this.handleSubmit} className="mx-3">
                   <textarea className="border border-color w-100 rounded" name="content" rows="2" onKeyDown={this.onEnterPress} onChange={this.handleChange} value={this.state.content}></textarea>
                   {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                  <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Send</button>
+                  <button type="submit" className="sendButton">Send</button>
                 </form>
               </div>
               <div className="logIn">
