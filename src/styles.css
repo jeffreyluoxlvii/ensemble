@@ -6,9 +6,13 @@ body {
   background-color: #121212;
 }
 
-
+.rightColumn {
+  height: 80vh;
+}
 .chat-area {
-  margin-top: 60px;
+  margin-top: 20px;
+  height: 50vh;
+  overflow: scroll;
 }
 
 
@@ -32,9 +36,15 @@ body {
   color: #ffffff;
 }
 
+.titleBox{
+  margin-top:50%;
+  text-align: center;
+  color: #bc6ff1;
+}
 .textBox {
+  overflow: scroll;
+  height: 50vh;
   color: #ffffff;
-  margin-top: 45vh;
 }
 
 .text1 {
@@ -46,9 +56,7 @@ body {
   display: inline;
 }
 
-.rightColumn {
-  height:80vh;
-}
+
 
 .chat-area {
   padding: 20px;

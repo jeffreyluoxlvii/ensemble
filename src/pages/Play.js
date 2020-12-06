@@ -127,8 +127,9 @@ export default class Play extends Component {
           <Header />
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
+              <h4 className="titleBox">Current Queue: </h4>
               <div className="textBox">
-                Current Queue: 
+
                 <ul>
                   {this.state.queue.map(song => {
                     return <li key={song.videoId}>{song.title}</li>
