@@ -141,7 +141,7 @@ export default class Play extends Component {
       await db.ref("chats").push({
         content: this.state.content,
         timestamp: Date.now(),
-        uid: this.state.user.uid
+        uid: this.state.user.email
       });
       console.log(this.state.content)
       if (this.state.content.startsWith("-p ")) { // if content contains the play keyword
@@ -152,12 +152,6 @@ export default class Play extends Component {
     } catch (error) {
       this.setState({ writeError: error.message });
     }
-  }
-
-  formatTime(timestamp) {
-    const d = new Date(timestamp);
-    const time = `${d.getDate()}/${(d.getMonth() + 1)}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
-    return time;
   }
 
   onEnterPress = (e) => {
@@ -229,10 +223,10 @@ export default class Play extends Component {
                 </div> : ""}
                 {/* chat area */}
                 {this.state.chats.map(chat => {
-                  return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
+                  return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.email === chat.uid ? "current-user" : "")}>
                     {chat.content}
                     <br />
-                    <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
+                    <span className="chat-time float-right">{chat.uid}</span>
                   </p>
                 })}
               </div>
