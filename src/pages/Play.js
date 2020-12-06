@@ -158,8 +158,8 @@ export default class Play extends Component {
           <Header />
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
+              <h4 className="titleBox">Current Queue: </h4>
               <div className="textBox">
-                Current Queue:
                 <ul>
                   {this.state.queue.map((song, i) => {
                     return <li key={i}>{song.title}</li>
@@ -198,7 +198,6 @@ export default class Play extends Component {
               </div>
             </div>
             <div className="col-3 main-command-column">
-              <div className="rightColumn">
                 <div className="chat-area" ref={this.myRef}>
                   {/* loading indicator */}
                   {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
@@ -213,15 +212,16 @@ export default class Play extends Component {
                     </p>
                   })}
                 </div>
+                <div className = "form">
                 <form onSubmit={this.handleSubmit} className="mx-3">
                   <textarea className="border border-color w-100 rounded" name="content" rows="2" onChange={this.handleChange} value={this.state.content}></textarea>
                   {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                  <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Play</button>
+                  <button type="submit" className="btn btn-submit w-100 px-5 mt-4">Send</button>
                 </form>
+                </div>
                 <div className="logIn">
                   Logged in as: <strong className="text2">{this.state.user.email}</strong>
                 </div>
-              </div>
             </div>
           </div>
         </main>

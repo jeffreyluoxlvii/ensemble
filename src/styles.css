@@ -6,9 +6,12 @@ body {
   background-color: #121212;
 }
 
-
 .chat-area {
-  margin-top: 60px;
+  margin-top: 45%;
+  height: 50vh;
+  overflow: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 
@@ -32,9 +35,19 @@ body {
   color: #ffffff;
 }
 
+.form {
+  padding-top: 10px;
+}
+
+.titleBox{
+  margin-top:50%;
+  text-align: center;
+  color: #bc6ff1;
+}
 .textBox {
+  overflow: scroll;
+  height: 50vh;
   color: #ffffff;
-  margin-top: 45vh;
 }
 
 .text1 {
@@ -46,15 +59,6 @@ body {
   display: inline;
 }
 
-.rightColumn {
-  height:80vh;
-}
-
-.chat-area {
-  padding: 20px;
-  height: 65vh;
-  overflow-y: scroll;
-}
 
 .chat-area .chat-bubble {
   background-color: #bbdefb;
@@ -115,6 +119,7 @@ body {
 .logIn{
   color:white;
   padding-top:15px;
+  text-align: center;
 }
 .btn-submit {
   background-color: #000000;
