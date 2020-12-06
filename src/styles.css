@@ -6,13 +6,12 @@ body {
   background-color: #121212;
 }
 
-.rightColumn {
-  height: 80vh;
-}
 .chat-area {
-  margin-top: 20px;
+  margin-top: 45%;
   height: 50vh;
   overflow: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 
@@ -36,6 +35,10 @@ body {
   color: #ffffff;
 }
 
+.form {
+  padding-top: 10px;
+}
+
 .titleBox{
   margin-top:50%;
   text-align: center;
@@ -56,13 +59,6 @@ body {
   display: inline;
 }
 
-
-
-.chat-area {
-  padding: 20px;
-  height: 65vh;
-  overflow-y: scroll;
-}
 
 .chat-area .chat-bubble {
   background-color: #bbdefb;
@@ -123,6 +119,7 @@ body {
 .logIn{
   color:white;
   padding-top:15px;
+  text-align: center;
 }
 .btn-submit {
   background-color: #000000;
