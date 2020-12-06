@@ -89,7 +89,8 @@ body {
 
 
 .chat-area .chat-bubble {
-  background-color: #bbdefb;
+  background-color: #272727;
+  color: white;
   padding: 20px;
   border-radius: 4px;
   width: 70%;
@@ -103,10 +104,20 @@ body {
   text-align: right;
 }
 
+.sendButton {
+  background-color: #bc6ff1;
+  color:white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  border-color: #bc6ff1;
+}
+
 .chat-area .chat-bubble.current-user {
   margin-left: auto;
   width: 70%;
-  background-color: #a5d6a7;
+  color:white;
+  background-color: #bc6ff1;
 }
 
 .form-control {
