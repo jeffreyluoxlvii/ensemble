@@ -159,12 +159,14 @@ export default class Play extends Component {
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
               <h4 className="titleBox">Current Queue: </h4>
+              <div className="scroll">
               <div className="textBox">
                 <ul>
                   {this.state.queue.map((song, i) => {
                     return <li key={i}>{song.title}</li>
                   })}
                 </ul>
+              </div>
               </div>
             </div>
             <div className="col-6 main-instructions-column">

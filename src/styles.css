@@ -6,12 +6,26 @@ body {
   background-color: #121212;
 }
 
+.scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
 .chat-area {
   margin-top: 45%;
   height: 50vh;
-  overflow: scroll;
   padding-left: 20px;
   padding-right: 20px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow: scroll;
+}
+.chat-area::-webkit-scrollbar {
+  display: none;
 }
 
 
@@ -45,7 +59,6 @@ body {
   color: #bc6ff1;
 }
 .textBox {
-  overflow: scroll;
   height: 50vh;
   color: #ffffff;
 }
