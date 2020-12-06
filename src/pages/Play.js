@@ -141,7 +141,7 @@ export default class Play extends Component {
     if(index <= this.state.songIndex && this.state.songIndex > 0) {
       this.setState({
         songIndex: this.state.songIndex - 1
-      });
+      }, () => updateIndex(this.state.songIndex));
     }
     db.ref("queue/" + id).remove();
   }
