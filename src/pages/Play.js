@@ -54,7 +54,16 @@ export default class Play extends Component {
       this.setState({ readError: error.message, loadingChats: false });
     }
     this.scrollToBottom();
-    // fetch the queue
+
+    try {
+      db.ref("index").on("value", snapshot => {
+        const index = snapshot.val();
+        this.setState({ songIndex: index });
+        this.setState({ loadingIndex: false });
+      });
+    } catch (error) {
+      this.setState({ readError: error.message, loadingIndex: false });
+    }
     try {
       db.ref("queue").on("value", snapshot => {
         let queue = [];
@@ -71,15 +80,6 @@ export default class Play extends Component {
       })
     } catch (error) {
       this.setState({ readError: error.message, loadingQueue: false });
-    }
-    try {
-      db.ref("index").on("value", snapshot => {
-        const index = snapshot.val();
-        this.setState({ songIndex: index });
-        this.setState({ loadingIndex: false });
-      });
-    } catch (error) {
-      this.setState({ readError: error.message, loadingIndex: false });
     }
     try {
       db.ref("isPlaying").on("value", snapshot => {
@@ -148,7 +148,7 @@ export default class Play extends Component {
         songIndex: this.state.songIndex - 1
       }, () => updateIndex(this.state.songIndex));
     }
-    db.ref("queue/" + id).remove();
+    await db.ref("queue/" + id).remove();
   }
 
   async handleSubmit(event) {
@@ -194,9 +194,9 @@ export default class Play extends Component {
                 <div className="textBox">
                   <ol>
                     {this.state.queue.map((song, i) => {
-                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")}  key={i}>
+                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")} key={i}>
                         <div className="flexBox"><div onClick={() => updateIndex(i)}>{song.title}</div>
-                        <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i></div>
+                          <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i></div>
                       </li>
                       )
                     })}
@@ -206,18 +206,33 @@ export default class Play extends Component {
             </div>
             <div className="col-6 main-instructions-column">
               <div className="center">
-                {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
-                  <ReactPlayer
-                    volume={this.state.playerVolume}
-                    onEnded={this.playNextSong}
-                    onReady={this.playSong}
-                    onPlay={this.playSong}
-                    onPause={this.pauseSong}
-                    playing={this.state.isPlaying}
-                    className="videoFormat"
-                    url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
-                  />}
-
+                {(() => {
+                  if (this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) {
+                    return null
+                  } else if (this.state.songIndex === this.state.queue.length){
+                    return <ReactPlayer
+                              volume={this.state.playerVolume}
+                              onEnded={this.playNextSong}
+                              onReady={this.playSong}
+                              onPlay={this.playSong}
+                              onPause={this.pauseSong}
+                              playing={this.state.isPlaying}
+                              className="videoFormat"
+                              url={`https://youtu.be/${this.state.queue[this.state.queue.length - 1].videoId}`}
+                            />
+                  } else {
+                    return <ReactPlayer
+                              volume={this.state.playerVolume}
+                              onEnded={this.playNextSong}
+                              onReady={this.playSong}
+                              onPlay={this.playSong}
+                              onPause={this.pauseSong}
+                              playing={this.state.isPlaying}
+                              className="videoFormat"
+                              url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
+                            />
+                  }
+                })()}
                 <div className="buttonList">
                   <button className="buttonPadding2" onClick={this.playPrevSong} type="button">
                     <i class="fas fa-step-backward"></i>
@@ -236,9 +251,9 @@ export default class Play extends Component {
                   </button>
                 </div>
                 <div className="slider">
-                <div className="soundIconLeft"><i class="fas fa-volume-off"></i></div>
-                 <input type="range" min="0" max="1" step="0.01" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
-                 <div className="soundIconRight"><i class="fas fa-volume-up"></i></div>
+                  <div className="soundIconLeft"><i class="fas fa-volume-off"></i></div>
+                  <input type="range" min="0" max="1" step="0.01" onChange={this.setVolume} value={this.state.playerVolume} class="range blue" />
+                  <div className="soundIconRight"><i class="fas fa-volume-up"></i></div>
                 </div>
               </div>
             </div>
