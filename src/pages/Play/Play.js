@@ -207,7 +207,7 @@ export default class Play extends Component {
               </div>
             </div>
             <div className="col-6 main-instructions-column">
-              <div className="center">
+              <div className={styles.center}>
                 {(() => {
                   if (this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) {
                     return null
@@ -235,8 +235,8 @@ export default class Play extends Component {
                             />
                   }
                 })()}
-                <div className="buttonList">
-                  <button className="buttonPadding2" onClick={this.playPrevSong} type="button">
+                <div className={styles.buttonList}>
+                  <button className={styles.buttonPadding2} onClick={this.playPrevSong} type="button">
                     <i class="fas fa-step-backward"></i>
                   </button>
                   {
