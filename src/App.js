@@ -6,13 +6,14 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-import Home from "./pages/Home";
-import Play from "./pages/Play";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Home from "./pages/Home/Home";
+import Home2 from "./pages/Home2/Home2";
+import Play from "./pages/Play/Play";
+import Signup from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
 import { auth } from "./services/firebase";
-import './styles.css';
-import Home2 from "./pages/Home2";
+//import './styles.css';
+
 
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
