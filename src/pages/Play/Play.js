@@ -195,7 +195,7 @@ export default class Play extends Component {
                 <div className={styles.textBox}>
                   <ol>
                     {this.state.queue.map((song, i) => {
-                      return (<li className={(this.state.songIndex === i ? "highlighted" : "")}  key={i}>
+                      return (<li className={(this.state.songIndex === i ? styles.highlighted : "")}  key={i}>
                         <div className={styles.flexBox}><div onClick={() => updateIndex(i)}>{song.title}</div>
                         <div className={styles.removeButton} ><i  class="fas fa-times" onClick={() => this.removeSong(song.id, i)}></i></div>
                         </div>

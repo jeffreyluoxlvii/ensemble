@@ -107,7 +107,9 @@ ol li:hover > .flexBox > .removeButton {
   scrollbar-width: none;  /* Firefox */
   overflow: scroll;
 }
-
+.chatArea::-webkit-scrollbar {
+  display: none;
+}
 
 .chatTime{
   font-size: 12px;
