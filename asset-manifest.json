@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/ensemble/static/css/main.5a5d7078.chunk.css",
-    "main.js": "/ensemble/static/js/main.893cb3ea.chunk.js",
-    "main.js.map": "/ensemble/static/js/main.893cb3ea.chunk.js.map",
+    "main.css": "/ensemble/static/css/main.e8c40950.chunk.css",
+    "main.js": "/ensemble/static/js/main.7c907b24.chunk.js",
+    "main.js.map": "/ensemble/static/js/main.7c907b24.chunk.js.map",
     "runtime-main.js": "/ensemble/static/js/runtime-main.b041c951.js",
     "runtime-main.js.map": "/ensemble/static/js/runtime-main.b041c951.js.map",
     "static/js/2.7164224d.chunk.js": "/ensemble/static/js/2.7164224d.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.52e16061.chunk.js": "/ensemble/static/js/3.52e16061.chunk.js",
     "static/js/3.52e16061.chunk.js.map": "/ensemble/static/js/3.52e16061.chunk.js.map",
     "index.html": "/ensemble/index.html",
-    "static/css/main.5a5d7078.chunk.css.map": "/ensemble/static/css/main.5a5d7078.chunk.css.map",
+    "static/css/main.e8c40950.chunk.css.map": "/ensemble/static/css/main.e8c40950.chunk.css.map",
     "static/js/2.7164224d.chunk.js.LICENSE.txt": "/ensemble/static/js/2.7164224d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b041c951.js",
     "static/js/2.7164224d.chunk.js",
-    "static/css/main.5a5d7078.chunk.css",
-    "static/js/main.893cb3ea.chunk.js"
+    "static/css/main.e8c40950.chunk.css",
+    "static/js/main.7c907b24.chunk.js"
   ]
 }
