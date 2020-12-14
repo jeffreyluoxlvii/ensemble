@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+}
+
+.logInBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  color: #ffffff;
+}
+
+.text1 {
+  color: #ffffff;
+  display: inline;
+}
+
+.text2 {
+  color: #892cdc;
+  display: inline;
+}
+
+.formcontrol {
+  width: 100%;
+}
+
+.formcontrol2 {
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+}
+
+.signUpButton {
+  background-color: #bc6ff1;
+  color:#272727;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+  border-color: #bc6ff1;
+}
+.signUpButton:hover {
+  background-color: #892cdc;
+  color:#272727;
+  border-radius:5px;
+  border-color: #892cdc;
+  width: 50vh;
+  margin-top:5px;
+  margin-bottom:5px;
+  border-radius: 5px;
+  padding:10px;
+  height: 7vh;
+}
+.googleSignUp {
+  background-color:#121212;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  color: #bc6ff1;
+}
+.googleSignUp:hover {
+  background-color:#bc6ff1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	width: 50px;
+  border-radius: 50%;
+  border: none;
+  color:black;
+}

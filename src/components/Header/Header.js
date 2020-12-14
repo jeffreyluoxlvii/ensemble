@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../services/firebase';
+import { auth } from '../../services/firebase';
+import styles from './Header.module.css';
 
 function Header() {
   return (
@@ -13,7 +14,7 @@ function Header() {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
           {auth().currentUser
             ? <div className="navbar-nav">
-              <button className="logOut" onClick={() => auth().signOut()}>Logout</button>
+              <button className={styles.logOut} onClick={() => auth().signOut()}>Logout</button>
             </div>
             : <div className="navbar-nav">
               <Link className="nav-item nav-link mr-3" to="/login">Log In</Link>

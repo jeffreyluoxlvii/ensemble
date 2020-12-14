@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+}
+
+/* Header Styling */
+.logOut {
+    background-color: #121212;
+    color:#757575;
+    padding: 5px;
+    width: 100%;
+    border:none;
+}
+
+.logOut:hover {
+  background-color: #121212;
+  color:white;
+  padding: 5px;
+  width: 100%;
+  border:none;
+}

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Header from "../components/Header";
-import { addSong, pauseSongDb, playSongDb, searchVideo, updateIndex } from "../helpers/db";
-import { auth } from "../services/firebase";
-import { db } from "../services/firebase";
+import Header from "../../components/Header/Header";
+import { addSong, pauseSongDb, playSongDb, searchVideo, updateIndex } from "../../helpers/db";
+import { auth } from "../../services/firebase";
+import { db } from "../../services/firebase";
 import ReactPlayer from 'react-player/youtube';
+import styles from './Play.module.css';
 
 export default class Play extends Component {
   _isMounted = false;
@@ -189,14 +190,15 @@ export default class Play extends Component {
           <Header />
           <div className="row main-container flex-fill">
             <div className="col-3 main-instructions-column">
-              <h4 className="titleBox">Current Queue: </h4>
-              <div className="scroll">
-                <div className="textBox">
+              <h4 className={styles.titleBox}>Current Queue: </h4>
+              <div className={styles.scroll}>
+                <div className={styles.textBox}>
                   <ol>
                     {this.state.queue.map((song, i) => {
                       return (<li className={(this.state.songIndex === i ? "highlighted" : "")}  key={i}>
-                        <div className="flexBox"><div onClick={() => updateIndex(i)}>{song.title}</div>
-                        <i class="removeButton fas fa-times" onClick={() => this.removeSong(song.id, i)}></i></div>
+                        <div className={styles.flexBox}><div onClick={() => updateIndex(i)}>{song.title}</div>
+                        <div className={styles.removeButton} ><i  class="fas fa-times" onClick={() => this.removeSong(song.id, i)}></i></div>
+                        </div>
                       </li>
                       )
                     })}
@@ -205,7 +207,8 @@ export default class Play extends Component {
               </div>
             </div>
             <div className="col-6 main-instructions-column">
-              <div className="center">
+              <div className={styles.center}>
+                <div className={styles.videoPlayer}>
                 {(this.state.loadingIndex || this.state.loadingQueue || this.state.queue.length === 0) ? null :
                   <ReactPlayer
                     volume={this.state.playerVolume}
@@ -217,58 +220,59 @@ export default class Play extends Component {
                     className="videoFormat"
                     url={`https://youtu.be/${this.state.queue[this.state.songIndex].videoId}`}
                   />}
+                  </div>
 
-                <div className="buttonList">
-                  <button className="buttonPadding2" onClick={this.playPrevSong} type="button">
+                <div className={styles.buttonList}>
+                  <button className={styles.buttonPadding2} onClick={this.playPrevSong} type="button">
                     <i class="fas fa-step-backward"></i>
                   </button>
                   {
                     (this.state.isPlaying) ?
-                      <button className="buttonPadding" onClick={this.pauseSong} type="button">
+                      <button className={styles.buttonPadding} onClick={this.pauseSong} type="button">
                         <i class="fas fa-pause"></i>
                       </button> :
-                      <button className="buttonPadding" onClick={this.playSong} type="button">
+                      <button className={styles.buttonPadding} onClick={this.playSong} type="button">
                         <i class="fas fa-play"></i>
                       </button>
                   }
-                  <button className="buttonPadding2" onClick={this.playNextSong} type="button">
+                  <button className={styles.buttonPadding2} onClick={this.playNextSong} type="button">
                     <i class="fas fa-step-forward"></i>
                   </button>
                 </div>
-                <div className="slider">
-                <div className="soundIconLeft"><i class="fas fa-volume-off"></i></div>
-                 <input type="range" min="0" max="1" step="0.01" onChange={this.setVolume} value={this.state.playerVolume} class="range blue"/>
-                 <div className="soundIconRight"><i class="fas fa-volume-up"></i></div>
+                <div className={styles.slider}>
+                <div className={styles.soundIconLeft}><i class="fas fa-volume-off"></i></div>
+                <input type="range" min="0" max="1" step="0.01" onChange={this.setVolume} value={this.state.playerVolume} className={styles.range}/>
+                 <div className={styles.soundIconRight}><i class="fas fa-volume-up"></i></div>
                 </div>
               </div>
             </div>
             <div className="col-3 main-command-column">
-              <div className="chat-area" ref={this.myRef}>
+              <div className={styles.chatArea} ref={this.myRef}>
                 {/* loading indicator */}
                 {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
                   <span className="sr-only">Loading...</span>
                 </div> : ""}
                 {/* chat area */}
                 {this.state.chats.map(chat => {
-                  return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.email === chat.uid ? "current-user" : "")}>
+                  return <p key={chat.timestamp} className={(this.state.user.email === chat.uid ? styles.chatBubble : styles.chatBubbleCurrentUser)}>
                     {chat.content}
                     <br />
-                    <span className="chat-time float-right">{chat.uid}</span>
+                    <span className={styles.chatTime}>{chat.uid}</span>
                   </p>
                 })}
                 <div style={{ float: "left", clear: "both" }}
                   ref={(el) => { this.messagesEnd = el; }}>
                 </div>
               </div>
-              <div className="form">
+              <div className={styles.form}>
                 <form onSubmit={this.handleSubmit} className="mx-3">
                   <textarea className="border border-color w-100 rounded" name="content" rows="2" onKeyDown={this.onEnterPress} onChange={this.handleChange} value={this.state.content} placeholder="Type your message here! Type '-p [songname]' to queue a song."></textarea>
                   {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                  <button type="submit" className="sendButton">Send</button>
+                  <button type="submit" className={styles.sendButton}>Send</button>
                 </form>
               </div>
-              <div className="logIn">
-                Logged in as: <strong className="text2">{this.state.user.email}</strong>
+              <div className={styles.logIn}>
+                Logged in as: <strong className={styles.text2}>{this.state.user.email}</strong>
               </div>
             </div>
           </div>
