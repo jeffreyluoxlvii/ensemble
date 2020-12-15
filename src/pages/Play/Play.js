@@ -156,24 +156,26 @@ export default class Play extends Component {
     event.preventDefault();
     this.setState({ writeError: null });
     const chatArea = this.myRef.current;
-    try {
-      await db.ref("chats").push({
-        content: this.state.content,
-        timestamp: Date.now(),
-        uid: this.state.user.email
-      });
-      if (this.state.content.startsWith("-p ")) {
-        addSong(await searchVideo(this.state.content.substring(3)));
+    if(/\S/.test(this.state.content)) {
+      try {
+        await db.ref("chats").push({
+          content: this.state.content,
+          timestamp: Date.now(),
+          uid: this.state.user.email
+        });
+        if (this.state.content.startsWith("-p ")) {
+          addSong(await searchVideo(this.state.content.substring(3)));
+        }
+        this.setState({ content: '' });
+        chatArea.scrollBy(0, chatArea.scrollHeight);
+      } catch (error) {
+        this.setState({ writeError: error.message });
       }
-      this.setState({ content: '' });
-      chatArea.scrollBy(0, chatArea.scrollHeight);
-    } catch (error) {
-      this.setState({ writeError: error.message });
     }
   }
 
   onEnterPress = (e) => {
-    if (e.keyCode === 13 && e.shiftKey === false && /\S/.test(this.state.content)) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       this.handleSubmit(e);
     }
