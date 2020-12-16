@@ -269,7 +269,7 @@ export default class Play extends Component {
                 </div> : ""}
                 {/* chat area */}
                 {this.state.chats.map(chat => {
-                  return <p key={chat.timestamp} className={(this.state.user.email === chat.uid ? styles.chatBubble : styles.chatBubbleCurrentUser)}>
+                  return <p key={chat.timestamp} className={(this.state.user.email === chat.uid ? styles.chatBubbleCurrentUser: styles.chatBubble)}>
                     {chat.content}
                     <br />
                     <span className={styles.chatTime}>{chat.uid}</span>
